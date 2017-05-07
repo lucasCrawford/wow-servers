@@ -1,11 +1,16 @@
 package com.thorrism.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
+import java.util.UUID;
 
 /**
  * Created by Hercules on 4/23/2017.
  */
 @Entity
+@Table
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Server extends BaseEntity {
 
     @Column
@@ -18,26 +23,22 @@ public class Server extends BaseEntity {
     private int port;
 
     @Column
-    private boolean isLoginServer;
+    private final String uid = UUID.randomUUID().toString();
 
     @OneToOne(cascade = CascadeType.ALL)
     private ServerStatus serverStatus;
 
     public Server(String friendlyName, String ipAddress,
-                  int port, boolean isLoginServer,
-                  ServerStatus serverStatus) {
+                  int port, ServerStatus serverStatus) {
         this.friendlyName = friendlyName;
         this.ipAddress = ipAddress;
         this.port = port;
-        this.isLoginServer = isLoginServer;
 
         // Attach the server to the server status.
-        serverStatus.setServer(this);
         this.serverStatus = serverStatus;
     }
 
-    public Server() {
-    }
+    public Server() {}
 
     public String getFriendlyName() {
         return friendlyName;
@@ -71,11 +72,7 @@ public class Server extends BaseEntity {
         this.port = port;
     }
 
-    public boolean isLoginServer() {
-        return isLoginServer;
-    }
-
-    public void setLoginServer(boolean loginServer) {
-        isLoginServer = loginServer;
+    public String getUid() {
+        return uid;
     }
 }

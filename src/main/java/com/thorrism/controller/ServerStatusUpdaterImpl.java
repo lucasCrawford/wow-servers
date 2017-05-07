@@ -17,16 +17,16 @@ import java.util.Date;
 public class ServerStatusUpdaterImpl implements ServerStatusUpdater {
 
     private PortChecker portChecker;
-    private ServerRepository serverRepository;
+    private ServerManager serverManager;
 
     @Value("${update.poll}")
     private long updatePoll;
     private long lastUpdate;
 
     @Autowired
-    public ServerStatusUpdaterImpl(PortChecker portChecker, ServerRepository serverRepository) {
+    public ServerStatusUpdaterImpl(PortChecker portChecker, ServerManager serverManager) {
         this.portChecker = portChecker;
-        this.serverRepository = serverRepository;
+        this.serverManager = serverManager;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ServerStatusUpdaterImpl implements ServerStatusUpdater {
         this.lastUpdate = new Date().getTime();
 
         // Find all the servers and perform the status update
-        Iterable<Server> serverList = serverRepository.findAll();
+        Iterable<Server> serverList = serverManager.findAllServers();
         for (Server server : serverList) {
             ServerStatus serverStatus = server.getServerStatus();
             serverStatus.setOnline(
@@ -43,8 +43,7 @@ public class ServerStatusUpdaterImpl implements ServerStatusUpdater {
             );
             serverStatus.setLastUpdate(new Date()); // set the last update to be exact time of update
         }
-
-        serverRepository.save(serverList);
+        serverManager.updateServers(serverList);
     }
 
     @Override

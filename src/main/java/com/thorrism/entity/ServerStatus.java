@@ -1,7 +1,6 @@
 package com.thorrism.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.context.annotation.Primary;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,24 +9,24 @@ import java.util.Date;
  * Created by Hercules on 4/23/2017.
  */
 @Entity
+@Table
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ServerStatus extends BaseEntity {
 
     @Column
     private boolean online;
 
     @Column
-    private int population;
+    private String hordeStatistics;
+
+    @Column
+    private String allianceStatistics;
 
     @Column
     private Date lastUpdate;
 
-    @OneToOne
-    @JsonIgnore
-    private Server server;
-
-    public ServerStatus(boolean online, int population) {
+    public ServerStatus(boolean online) {
         this.online = online;
-        this.population = population;
     }
 
     public ServerStatus() {
@@ -41,20 +40,20 @@ public class ServerStatus extends BaseEntity {
         this.online = online;
     }
 
-    public int getPopulation() {
-        return population;
+    public String getHordeStatistics() {
+        return hordeStatistics;
     }
 
-    public void setPopulation(int population) {
-        this.population = population;
+    public void setHordeStatistics(String hordeStatistics) {
+        this.hordeStatistics = hordeStatistics;
     }
 
-    public Server getServer() {
-        return server;
+    public String getAllianceStatistics() {
+        return allianceStatistics;
     }
 
-    public void setServer(Server server) {
-        this.server = server;
+    public void setAllianceStatistics(String allianceStatistics) {
+        this.allianceStatistics = allianceStatistics;
     }
 
     public Date getLastUpdate() {

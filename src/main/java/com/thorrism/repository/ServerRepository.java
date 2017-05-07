@@ -14,4 +14,6 @@ public interface ServerRepository extends CrudRepository<Server, Long> {
 
     List<Server> findServerByFriendlyNameIsStartingWithIgnoreCase(String name);
 
+    Server findServerByUid(String uid);
+
 }

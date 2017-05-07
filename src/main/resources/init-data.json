@@ -1,20 +1,24 @@
 [
   {
-    "friendlyName" : "Wargate",
-    "ipAddress" : "188.68.250.55",
-    "port" : "8085",
-    "serverStatus" : {
-      "online" : false,
-      "population" : 0
-    }
-  },
-  {
-    "friendlyName" : "Wargate Login Server",
-    "ipAddress" : "93.184.215.151",
-    "port" : "80",
-    "serverStatus" : {
-      "online" : false,
-      "population" : 0
-    }
+    "name": "Wargate",
+    "realmList" : "play.wargate-project.org",
+    "loginServer": {
+      "friendlyName": "Wargate Login Server",
+      "ipAddress": "93.184.215.151",
+      "port": "80",
+      "serverStatus": {
+        "online": false
+      }
+    },
+    "servers": [
+      {
+        "friendlyName": "Wargate",
+        "ipAddress": "188.68.250.55",
+        "port": "8085",
+        "serverStatus": {
+          "online": false
+        }
+      }
+    ]
   }
 ]
